@@ -1,22 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { AppDispatch } from "../store/store";
+import { useDispatch } from "react-redux";
+import { adduser } from "../store/user";
+
+
+
+// Add this line to handleAdd function
+
 
 export const AddItem = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  
   const navigate = useNavigate();
   const [itemName, setItemName] = useState("");
   const [userName, setUserName] = useState(""); // State for user name
 
-
+ 
   const handleAdd = () => {
+    
     if (itemName.trim()) {
-      setItemName(""); // Clear input
-      navigate("/"); // Go back to list
+      setItemName(""); 
+      navigate("/"); 
+      dispatch(addItem(itemName));
     }
   };
 
   const handleSetName = () => {
     if (userName.trim()) {
       setUserName("");
+      dispatch(adduser(userName));
     }
   };
 
@@ -54,7 +67,7 @@ export const AddItem = () => {
         className="p-2 border rounded w-full max-w-md mb-4"
       />
       <button
-        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        className="px-4 py-2 bg-green-500 text-black rounded hover:bg-green-600"
         onClick={handleSetName}
       >
         Set Name
